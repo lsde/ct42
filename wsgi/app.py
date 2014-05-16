@@ -14,8 +14,9 @@ def root():
 	r = requests.get(src)
 	soup = bs4.BeautifulSoup(r.text)
 	for link in soup.find_all('iframe'):
-		if 'iFramePlayerCT24' in link.get('src'):
-			url = 'http://www.ceskatelevize.cz' +  link.get('src')
+		iframe_link = link.get('src')
+		if 'iFramePlayerCT24' in iframe_link:
+			url = 'http://www.ceskatelevize.cz' +  iframe_link
         return render_template('index.tpl', url=url)
 
 @app.route('/static')
@@ -23,4 +24,5 @@ def foo():
         url_for('static', filename='.*')
 
 if __name__ == '__main__':
+	app.debug = True
         app.run()
