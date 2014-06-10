@@ -1,0 +1,35 @@
+body{
+    background-color: #000000;
+}
+
+.container{
+    width: 640px;
+    height: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;
+}
+
+.text{
+    position: relative;
+    top: 280px;
+    left: 65px;
+    z-index: 4;
+    width: 400px;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mask{
+    position: relative;
+    z-index: 3;
+}
+
+.content{
+    position: relative;
+    top: -430px;
+    z-index: 2;
+    width: 636px;
+    height: 357px;
+}

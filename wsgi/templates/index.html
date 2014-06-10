@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ČT42</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <img class="text" src="{{ url_for('static', filename='dont_panic.png') }}">
+        <img class="mask" src="{{ url_for('static', filename='tv.png') }}">
+        <iframe class="content" src="{{ url }}" frameborder="0" scrolling="no"></iframe>
+    </div>
+</body>
+</html>
