@@ -2,20 +2,24 @@ import requests
 import bs4
 from flask import Flask, request
 from flask import render_template
+from flask.ext import restful
 
 app = Flask(__name__)
-src = 'http://www.ceskatelevize.cz/ct24/zive-vysilani/'
+api = restful.Api(app)
 
+ct_domain = 'http://www.ceskatelevize.cz'
+video_src =  '{0}/ct24/zive-vysilani/'.format(ct_domain)
+iframe_name = 'iFramePlayerCT24'
 iframe_working = True
 
 @app.route('/')
 def root():
-	r = requests.get(src)
+	r = requests.get(video_src)
 	soup = bs4.BeautifulSoup(r.text)
 	global iframe_working
 	for link in soup.find_all('iframe'):
 		iframe_link = link.get('src')
-		if 'iFramePlayerCT24' in iframe_link:
+		if iframe_name in iframe_link:
 			url = iframe_link
 			iframe_working = True
 		else:
@@ -27,17 +31,18 @@ def root():
 def ivysilani(link):
 	full_link = request.url
 	link = full_link.replace(request.url_root, '/')
-	url = 'http://www.ceskatelevize.cz' + link
+	url = ct_domain + link
 	r = requests.get(url)
 	return r.text
 
-@app.route('/monitoring', methods=['GET'])
-def monitoring():
-	if iframe_working:
-		return 'blebleble OK'
-	else:
-		return 'blebleble CRITICAL'
+class monitoring(restful.Resource):
+	def get(self):
+		if iframe_working:
+			return {'status': 'OK'}
+		else:
+			return {'status' : 'ERROR'}
+
+api.add_resource(monitoring, '/monitoring')
 
 if __name__ == '__main__':
-	app.debug = True
-	app.run('0.0.0.0')
+	app.run(debug=True)

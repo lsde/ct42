@@ -6,6 +6,6 @@ setup(name='ct42',
       author='Jonas Svatos',
       author_email='lsde@lsde.org',
       url='http://www.ct42.cz',
-      install_requires=['Flask', 'requests', 'Jinja2', 'Werkzeug', 'BeautifulSoup4'],
+      install_requires=['Flask', 'flask-restful', 'requests', 'Jinja2', 'Werkzeug', 'BeautifulSoup4'],
      )
 
