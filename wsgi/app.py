@@ -33,7 +33,8 @@ def ivysilani(link):
 	link = full_link.replace(request.url_root, '/')
 	url = ct_domain + link
 	r = requests.get(url)
-	return r.text
+	text = r.text.replace('','<param name="wmode" value="transparent"></param>')
+	return text
 
 class monitoring(restful.Resource):
 	def get(self):
