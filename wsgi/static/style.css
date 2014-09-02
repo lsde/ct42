@@ -12,10 +12,10 @@ body{
 
 .text{
     position: relative;
-    top: 280px;
-    left: 65px;
+    top: 330px;
+    left: 110px;
     z-index: 4;
-    width: 400px;
+    width: 300px;
     vertical-align: middle;
     margin-left: auto;
     margin-right: auto;
