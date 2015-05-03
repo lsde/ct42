@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ČT42</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+       <img class="text" src="{{ url_for('static', filename='dont_panic.png') }}">
+        <div class="unsupported">Flash in Firefox is broken.<br/>Please, use any other browser.</div>
+        <img class="mask" src="{{ url_for('static', filename='tv.png') }}">
+    </div>
+</body>
+</html>

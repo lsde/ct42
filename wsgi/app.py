@@ -14,6 +14,9 @@ iframe_working = True
 
 @app.route('/')
 def root():
+	if 'Firefox' in str(request.user_agent):
+		return render_template('unsupported.html')
+
 	r = requests.get(video_src)
 	soup = bs4.BeautifulSoup(r.text)
 	global iframe_working

@@ -26,6 +26,13 @@ body{
     z-index: 3;
 }
 
+.unsupported{
+    position: relative;
+    top: 250px;
+    left: 150px;
+    color: white;
+}
+
 .content{
     position: relative;
     top: -430px;
