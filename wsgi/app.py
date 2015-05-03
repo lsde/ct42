@@ -1,6 +1,6 @@
 import requests
 import bs4
-from flask import Flask, request
+from flask import Flask, request, redirect
 from flask import render_template
 from flask.ext import restful
 
@@ -27,13 +27,11 @@ def root():
 			iframe_working = False
 		return render_template('index.html', url=url)
 
-@app.route('/ivysilani/<path:link>')
+@app.route('/ivysilani/<path:link>', methods=['GET', 'POST'])
 def ivysilani(link):
 	full_link = request.url
-	link = full_link.replace(request.url_root, '/')
-	url = ct_domain + link
-	r = requests.get(url)
-	return r.text
+	link = full_link.replace(request.url_root, ct_domain + '/')
+	return redirect(link)
 
 class monitoring(restful.Resource):
 	def get(self):
