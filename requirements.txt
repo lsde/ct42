@@ -6,6 +6,7 @@ Werkzeug==0.10.4
 aniso8601==1.0.0
 argparse==1.2.1
 beautifulsoup4==4.3.2
+gunicorn==19.3.0
 itsdangerous==0.24
 pytz==2015.4
 requests==2.7.0
