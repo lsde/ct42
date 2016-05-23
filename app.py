@@ -1,49 +1,25 @@
-import requests
-import bs4
-from flask import Flask, request, redirect
+#!/usr/bin/env python
+from flask import Flask, request
 from flask import render_template
-from flask.ext import restful
+from selenium import webdriver
 
 app = Flask(__name__)
-api = restful.Api(app)
 
-ct_domain = 'http://www.ceskatelevize.cz'
-video_src =  '{0}/ct24/zive-vysilani/'.format(ct_domain)
-iframe_name = 'iFramePlayerCT24'
-iframe_working = True
 
 @app.route('/')
 def root():
-	if 'Firefox' in str(request.user_agent):
-		return render_template('unsupported.html')
+    if 'Firefox' in str(request.user_agent):
+        return render_template('unsupported.html')
 
-	r = requests.get(video_src)
-	soup = bs4.BeautifulSoup(r.text)
-	global iframe_working
-	for link in soup.find_all('iframe'):
-		iframe_link = link.get('src')
-		if iframe_name in iframe_link:
-			url = iframe_link
-			iframe_working = True
-		else:
-			url = 'about:blank'
-			iframe_working = False
-		return render_template('index.html', url=url)
+    driver = webdriver.Remote(command_executor="http://127.0.0.1:8910",
+                              desired_capabilities={'javascriptEnabled' : True,
+                                                    'loadImages' : False}
+                              )
+    driver.get('http://www.ceskatelevize.cz/ct24#live')
+    iframe = driver.find_element_by_class_name('live-video').find_element_by_tag_name('iframe')
+    url = iframe.get_attribute('src')
+    return render_template('index.html', url=url)
 
-@app.route('/ivysilani/<path:link>', methods=['GET', 'POST'])
-def ivysilani(link):
-	full_link = request.url
-	link = full_link.replace(request.url_root, ct_domain + '/')
-	return redirect(link)
-
-class monitoring(restful.Resource):
-	def get(self):
-		if iframe_working:
-			return {'status': 'OK'}
-		else:
-			return {'status' : 'ERROR'}
-
-api.add_resource(monitoring, '/monitoring')
 
 if __name__ == '__main__':
-	app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True, threaded=True)
