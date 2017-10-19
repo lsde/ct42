@@ -1,9 +1,20 @@
-ct42:
+app:
   build: .
   environment:
-    - VIRTUAL_HOST=ct42.cz,www.ct42.cz
+    - VIRTUAL_HOST=www.ct42.cz,ct42.cz
     - LISTEN_HOST=0.0.0.0
     - LISTEN_PORT=80
+    - ENDPOINT_HOST=server
+    - APP_DEBUG=1
   expose:
-    - "80"
+    - 80
+  links:
+    - server
+  restart: always
+
+server:
+  build: ./BUILD/node-phantom
+  expose:
+    - 8910
+  command: /node_modules/phantomjs/lib/phantom/bin/phantomjs -w --load-images=false
   restart: always

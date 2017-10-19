@@ -13,9 +13,6 @@ endpoint_port = os.getenv('ENDPOINT_PORT', 8910)
 
 @app.route('/')
 def root():
-    if 'Firefox' in str(request.user_agent):
-        return render_template('unsupported.html')
-
     driver = webdriver.Remote(command_executor="http://{0}:{1}".format(endpoint_host, endpoint_port),
                               desired_capabilities={'javascriptEnabled' : True,
                                                     'loadImages' : False}
