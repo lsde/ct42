@@ -17,7 +17,7 @@ def root():
                               desired_capabilities={'javascriptEnabled' : True,
                                                     'loadImages' : False}
                               )
-    driver.get('http://www.ceskatelevize.cz/ct24#live')
+    driver.get('https://ct24.ceskatelevize.cz/#live')
     iframe = driver.find_element_by_class_name('live-video').find_element_by_tag_name('iframe')
     url = iframe.get_attribute('src')
     return render_template('index.html', url=url)
