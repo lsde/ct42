@@ -4,6 +4,7 @@ import os
 from flask import Flask, request
 from flask import render_template
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 app = Flask(__name__)
 app.debug = bool(int(os.getenv('APP_DEBUG', 0)))
@@ -15,14 +16,11 @@ endpoint_port = os.getenv('ENDPOINT_PORT', 8910)
 @app.route('/')
 def root():
     driver = webdriver.Remote(command_executor="http://{0}:{1}".format(endpoint_host, endpoint_port),
-                              desired_capabilities={'javascriptEnabled' : True,
-                                                    'loadImages' : False}
-                              )
+                              desired_capabilities=DesiredCapabilities.CHROME)
     driver.get('https://ct24.ceskatelevize.cz/#live')
     try:
         iframe = driver.find_element_by_class_name('live-video').find_element_by_tag_name('iframe')
     except Exception as e:
-        print(e.screen)
         raise
     url = iframe.get_attribute('src')
     return render_template('index.html', url=url)
