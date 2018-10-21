@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import os
-from flask import Flask, request
+from flask import Flask, request, redirect
 from flask import render_template
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -24,6 +24,8 @@ def root():
     try:
         live_video = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "live-video")))
         url = live_video.find_element_by_tag_name('iframe').get_attribute('src')
+    except:
+        return redirect('/')
     finally:
         driver.quit()
     return render_template('index.html', url=url)
