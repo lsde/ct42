@@ -16,5 +16,4 @@ server:
   build: ./BUILD/node-phantom
   expose:
     - 8910
-  command: /node_modules/phantomjs/lib/phantom/bin/phantomjs -w --load-images=false
   restart: always

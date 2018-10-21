@@ -1,3 +1,3 @@
-FROM node:0.10
-RUN npm install phantomjs
-CMD /node_modules/phantomjs/lib/phantom/bin/phantomjs -w
+FROM node
+RUN npm install phantomjs-prebuilt
+CMD /node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs -w --load-images=false
