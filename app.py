@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import os
 from flask import Flask, request
 from flask import render_template
@@ -18,7 +19,11 @@ def root():
                                                     'loadImages' : False}
                               )
     driver.get('https://ct24.ceskatelevize.cz/#live')
-    iframe = driver.find_element_by_class_name('live-video').find_element_by_tag_name('iframe')
+    try:
+        iframe = driver.find_element_by_class_name('live-video').find_element_by_tag_name('iframe')
+    except NoSuchElementException as e:
+        print(e.screen)
+        raise
     url = iframe.get_attribute('src')
     return render_template('index.html', url=url)
 
