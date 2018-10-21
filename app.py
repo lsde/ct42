@@ -5,6 +5,9 @@ from flask import Flask, request
 from flask import render_template
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 app = Flask(__name__)
 app.debug = bool(int(os.getenv('APP_DEBUG', 0)))
@@ -19,10 +22,10 @@ def root():
                               desired_capabilities=DesiredCapabilities.CHROME)
     driver.get('https://ct24.ceskatelevize.cz/#live')
     try:
-        iframe = driver.find_element_by_class_name('live-video').find_element_by_tag_name('iframe')
-    except Exception as e:
-        raise
-    url = iframe.get_attribute('src')
+        live_video = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "live-video")))
+        url = live_video.find_element_by_tag_name('iframe').get_attribute('src')
+    finally:
+        driver.quit()
     return render_template('index.html', url=url)
 
 
