@@ -21,7 +21,7 @@ def root():
     driver.get('https://ct24.ceskatelevize.cz/#live')
     try:
         iframe = driver.find_element_by_class_name('live-video').find_element_by_tag_name('iframe')
-    except NoSuchElementException as e:
+    except Exception as e:
         print(e.screen)
         raise
     url = iframe.get_attribute('src')
