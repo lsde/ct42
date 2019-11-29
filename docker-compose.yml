@@ -1,19 +1,23 @@
-app:
-  build: .
-  environment:
-    - VIRTUAL_HOST=www.ct42.cz,ct42.cz
-    - LISTEN_HOST=0.0.0.0
-    - LISTEN_PORT=80
-    - ENDPOINT_HOST=server
-    - APP_DEBUG=1
-  expose:
-    - 80
-  links:
-    - server
-  restart: always
+version: "2"
+services:
+  app:
+    build: .
+    environment:
+      - VIRTUAL_HOST=www.ct42.cz,ct42.cz
+      - LISTEN_HOST=0.0.0.0
+      - LISTEN_PORT=80
+      - ENDPOINT_HOST=server
+      - APP_DEBUG=1
+    expose:
+      - 80
+    ports:
+      - 8080:80
+    links:
+      - server
+    restart: always
 
-server:
-  build: ./BUILD/node-phantom
-  expose:
-    - 8910
-  restart: always
+  server:
+    build: ./BUILD/node-phantom
+    expose:
+      - 8910
+    restart: always
