@@ -31,7 +31,7 @@ def root(subpath=None):
         try:
             element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'video-play-btn')))
             element.click()
-        except Exception, err:
+        except Exception as err:
             traceback.print_exc()
     else:
         div_class = 'live-video'
@@ -39,7 +39,7 @@ def root(subpath=None):
     try:
         video = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, div_class)))
         url = video.find_element_by_tag_name('iframe').get_attribute('src')
-    except Exception, err:
+    except Exception as err:
         traceback.print_exc()
         return redirect('/')
     finally:
