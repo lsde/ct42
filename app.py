@@ -41,7 +41,7 @@ def root(subpath=None):
         url = video.find_element_by_tag_name('iframe').get_attribute('src')
     except Exception as err:
         traceback.print_exc()
-        return redirect('/')
+        url = 'https://upload.wikimedia.org/wikipedia/commons/b/b3/FREE_real_VHS_static.webm'
     finally:
         driver.quit()
     return render_template('index.html', url=url)
