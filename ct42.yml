@@ -42,6 +42,6 @@ spec:
       - name: phantomjs
         image: gcr.io/kubernetes-cluster-218308/phantomjs
         ports:
-        - containerPort: 8910
+        - containerPort: 4444
           name: http
 
