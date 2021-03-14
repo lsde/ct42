@@ -24,6 +24,11 @@ def favicon():
     return redirect('/static/favicon.ico')
 
 
+@app.route('/mon')
+def mon():
+    return 'OK'
+
+
 @app.route('/<path:subpath>')
 def ivysilani(subpath):
     return root(subpath)
