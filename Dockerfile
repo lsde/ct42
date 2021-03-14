@@ -1,6 +1,7 @@
-FROM python:3.7-alpine
+FROM python:3-alpine
 WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
+USER nobody
 CMD [ "python", "./app.py" ]

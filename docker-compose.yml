@@ -1,23 +1,23 @@
 version: "2"
 services:
-  app:
+  ct42:
     build: .
     environment:
       - VIRTUAL_HOST=www.ct42.cz,ct42.cz
       - LISTEN_HOST=0.0.0.0
-      - LISTEN_PORT=8080
-      - ENDPOINT_HOST=server
-      - APP_DEBUG=1
+      - LISTEN_PORT=5000
+      - ENDPOINT_HOST=geckodriver
+      - APP_DEBUG=0
     expose:
-      - 8080
+      - 5000
     ports:
-      - 8080:8080
+      - 5000:5000
     links:
       - server
     restart: always
 
-  server:
-    image: lsde/geckodriver-firefox
+  geckodriver:
+    image: instrumentisto/geckodriver
     expose:
       - 4444
     restart: always
